@@ -1,0 +1,491 @@
+
+
+\documentclass[a4paper,fleqn]{cas-sc}
+
+% If the frontmatter runs over more than one page
+% use the longmktitle option.
+
+%\documentclass[a4paper,fleqn,longmktitle]{cas-sc}
+
+%\usepackage[numbers]{natbib}
+%\usepackage[authoryear]{natbib}
+\usepackage[authoryear]{natbib}
+
+%%%Author macros
+\def\tsc#1{\csdef{#1}{\textsc{\lowercase{#1}}\xspace}}
+\tsc{WGM}
+\tsc{QE}
+%%%
+
+\newcommand{\bc}{\mathrm{bc}}
+\newcommand{\bt}{\mathrm{bt}}
+\newcommand{\REF}{\textsc{ref}}
+\newcommand{\CTRL}{\textsc{ctrl}}
+
+\begin{document}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{.001}
+
+% Short title
+\shorttitle{River plume over an internal tide}  
+
+% Short author
+\shortauthors{Dialectaquiz et al.} 
+
+% Main title of the paper
+\title [mode = title]{How the Amazon river plume alters semidiurnal internal tide generation}  
+
+% Title footnote mark
+% eg: \tnotemark[1]
+\tnotemark[1] 
+
+% Title footnote 1.
+% eg: \tnotetext[1]{Title footnote text}
+\tnotetext[1]{} 
+
+\author[1]{Arian Dialectaquiz}[orcid=0000-0002-7746-8205]
+\cormark[1]
+\ead{arian.santos@usp.br}
+\credit{Conceptualization, Methodology, Formal analysis, Writing -- original draft, Writing -- review \& editing}
+\affiliation[1]{organization={Instituto Oceanogr\'afico, Universidade de S\~ao Paulo},
+            addressline={Pra\c{c}a Oceanogr\'afico 191},
+            city={S\~ao Paulo},
+            postcode={05508-120},
+            state={SP},
+            country={Brazil}}
+
+\author[1]{Rafaela do Nascimento}[orcid = 0000-0003-0187-2137]
+\ead{rfnascimento@usp.br}
+\credit{Methodology, Formal analysis, Writing -- original draft, Writing -- review \& editing}
+
+
+
+\author[1]{Marcelo Dottori}[orcid=0000-0003-2382-4136]
+\ead{mdottori@usp.br}
+\credit{Funding acquisition, Writing -- original draft, Writing -- review \& editing}
+
+\cortext[1]{Corresponding author}
+
+% Footnote text
+\fntext[1]{}
+
+
+
+\begin{abstract}
+This study examines how continental discharge controls the generation of the semidiurnal internal tide of the Amazon margin, using twin simulations that share bathymetry, tidal forcing and period mean freshwater input and differ only in the variability of the river. The barotropic tide is common to the two to within 2\,\% of its amplitude, so the barotropic vertical velocity cancels between them and the conversion anomaly factorises exactly into the amplitude of the baroclinic pressure at the bed and its alignment with the forcing. River buoyancy raises the conversion of the shelf by a fifth to a half through the flood, and the alignment carries the larger part of that gain, because the plume alters the near bottom stratification enough to move the criticality of the break. Where the flood drives the criticality towards unity the two terms fall together and the upper slope converts least at the discharge peak. The same factorisation applied mode by mode shows the plume moving the shelf generation from the gravest mode towards the second, third and fourth, and attributes that shift to the amplitude of the modal pressure, the structure function at the bed contributing little below the fourth mode. The share of the generated energy crossing the 1000~m isobath is unchanged, the gravest mode carrying almost all of the radiated flux while the modes the river adds are lost near their source. Continental discharge therefore sets the magnitude of the conversion and the modal composition of the generated wave, while the margin geometry sets the fraction that radiates.
+\end{abstract}
+
+
+\section*{Plain language summary}
+
+Tides sloshing over the edge of a continental shelf generate internal waves that travel through the deep ocean and, when they break, stir heat and carbon downwards. How much energy the tide gives to these waves depends on how the density of the seawater is arranged with depth. Off the mouth of the Amazon, the river spreads a layer of fresh water tens of metres thick over the ocean, and the amount of fresh water changes by roughly a factor of two through the year. Two otherwise identical ocean model simulations were run, one with the real river flow and one with it held constant, so that the effect of the river variability could be measured. The river increases the energy the shelf gives to the internal tide, partly because the fresh layer alters the timing between the tidal flow and the pressure it generates at the sea bed, and partly because it strengthens that pressure. The river also changes the vertical shape of the waves, adding short waves that stay near where they were made. The fraction of the energy that escapes into the deep ocean stays much the same, because the long waves that do the travelling are not the ones the river adds. Rivers therefore control how much internal tide energy a shelf produces, while the shape of the sea floor controls how much of it gets away.
+
+\begin{highlights}
+\item Twin runs differing only in river discharge isolate the plume effect on generation
+\item The conversion anomaly factorises exactly into an amplitude and an alignment term
+\item The plume reaches the bed and moves the criticality, and alignment carries the gain
+\item Shelf generation shifts to higher modes through the modal pressure amplitude
+\item The radiated share is unchanged, since mode one carries what leaves the margin
+\end{highlights}
+
+\begin{keywords}
+internal tide\sep barotropic to baroclinic conversion\sep river plume\sep vertical modes\sep criticality\sep Amazon shelf
+\end{keywords}
+
+
+\maketitle 
+%-----------------------------------------------------------------------
+\section{Introduction}
+%-----------------------------------------------------------------------
+
+Internal tides carry roughly one terawatt of barotropic tidal energy into the ocean interior, where their breaking sustains the diapycnal mixing that closes the abyssal buoyancy budget \citep{munkwunsch:1998,egbertray:2000,wunsch2004vertical,whalen2020internal}. Generation occurs where barotropic tidal flow crosses sloping topography, and the transfer is the work done at the bed by the barotropic vertical velocity against the baroclinic pressure that the stratified column returns \citep{baines:1982,kelly:2010,zilberman:2009}. Because that work is the cycle average of a product of two oscillating fields, it carries the amplitude of the response and its phase relative to the forcing in separate factors, and the stratification acts on both. The amplitude of the baroclinic pressure at the bed grows with the near bottom buoyancy frequency and with the density structure of the column above it \citep{bell:1975,llewellynsmith:2002,nycander:2005}, while the phase is governed by the ratio of the bottom slope to the slope of an internal wave characteristic, the criticality, which separates a subcritical regime in which the generated wave propagates up the slope from a supercritical one in which the beam is reflected towards deep water, and across which the response to the forcing changes most rapidly \citep{baines:1982,garrett:2007,hall_2013,klymak:2011}. Stratification therefore enters generation twice, once through an amplitude and once through a ratio, and both enter the same product.
+
+The energy so transferred is distributed among the vertical modes of the column, since low modes radiate over basin scales while high modes carry slow group speeds and break close to their source \citep{kelly:2010,kelly:2012,vic2019deep}. Each mode is forced at the bed in proportion to the amplitude of the baroclinic pressure projected onto it and to the value of its structure function there \citep{llewellynsmith:2002,griffiths:2007,kelly:2012}, so the density profile governs the partition through the same two routes by which it governs the total, and the seasonal and interannual variability of the internal tide of a continental margin is accordingly attributed to the stratification, through the criticality it sets \citep{barbot_2021,tchilibou:2022,assene:2024} and through the mesoscale field that distorts the wave once radiated \citep{dunphy:2017,nelson:2019,kelly:2016,bendinger_2023,lahaye:2026}. A seasonal thermocline that deepens, or an eddy that passes, alters the density over the whole column, so the two routes move together and their contributions cannot be told apart, and separating them requires a buoyancy source confined to the upper tens of metres, which alters the depth integral that sets the baroclinic pressure at the bed while leaving the bottom slope and the near bottom stratification comparatively undisturbed. River plumes impose the strongest and most variable near surface stratification found on any shelf, and the discharge restructures them within days \citep{hornerdevine:2015,hetland:2005}. Their action on internal waves has been examined as a source, through the lee waves and solitary waves released at the frontal convergence \citep{nash:2005,stashchuk:2009}, while their action on the generation of the internal tide of the same margin remains unexamined, so no estimate exists of the share of the internal tide variability of a river dominated margin that is continental in origin, and no experiment has used a surface trapped buoyancy source to separate the amplitude of the conversion from its phase.
+
+The Amazon margin (Fig.~\ref{fig:setting}a) carries those ingredients at world record amplitude. A mean freshwater flux of $2\times10^{5}\ \mathrm{m^{3}\,s^{-1}}$, the largest point source of buoyancy in the ocean, builds a surface trapped lens twenty to fifty metres thick in the tropical Atlantic, in which $N^{2}$ exceeds $5\times10^{-3}\ \mathrm{s^{-2}}$ \citep{lentz1995seasonal,geyer1996physical,prestes2018amazon,nascimento:2026}, and the annual flood modulates that flux by a factor close to two over a few months while the lens itself is rebuilt within days \citep{hiban1996,hornerdevine:2015}. The lens sits over a wide, macrotidal, fluid mud floored shelf on which the barotropic $M_{2}$ tide is strongly dissipative \citep{beardsley:1995,gabioux:2005,kineke1996fluid,fontes:2008} and abuts one of the most energetic semidiurnal generation zones of the Atlantic, with six sites between the 100 and 1000~m isobaths \citep{magalhaes:2016,lentini:2016,bai:2021,tchilibou:2022,barbot_2021,assene:2024,kouogang:2025}. The seasonal comparisons published for the region place the flood alongside the weakening of the North Brazil Current and the collapse of the eddy kinetic energy \citep{tchilibou:2022,barbot_2021,assene:2024}, and report higher conversion, stronger local dissipation and a preference for higher modes during the flood without being able to assign a share of any of it to the freshwater. The reverse direction of the interaction was established by removing the tide \citep{ruault2020role,assene:2024}, and the complementary experiment, in which the circulation is held fixed and the river is varied, has not been performed.
+
+Holding the tide and the topography fixed makes the two routes separable within a single pair of runs, since the conversion then reduces to the amplitude of the baroclinic pressure at the bed, the amplitude of the barotropic vertical velocity, which the two experiments share, and the cosine of the phase between them. The discharge is expected to act on the amplitude through the density structure it builds, and the slope geometry on the alignment through the criticality. A lens occupying the upper tens of metres also reshapes the vertical profile of that pressure while leaving the column beneath it largely as it was, so the transfer is expected to move towards higher modes, which are lost close to their source. Whether that shift reaches the deep ocean depends on how much of the total those modes carry, which twin simulations settle directly. Two questions follow. Does the variability of the continental discharge set the amount of energy the Amazon margin extracts from the barotropic tide, and does it act through the amplitude of the baroclinic pressure at the bed or through the alignment of that pressure with the forcing? Does it set the distribution of that energy among the vertical modes at the generation sites, and does that distribution in turn set the share that radiates from the margin?
+
+
+%-----------------------------------------------------------------------
+\section{Methods}
+%-----------------------------------------------------------------------
+
+\subsection{Model configuration}
+\label{sec:model}
+
+The Regional Ocean Modeling System was used, a free surface, hydrostatic, primitive equation model discretised on terrain following coordinates \citep{shchepetkin2005regional,haidvogel1991semi}, in the Amazon shelf configuration whose skill for tidal elevation, tidal currents and hydrography is documented by \citet{nascimento:2026}. The domain spans 1400~km alongshore from Orange Cape to Tut\'oia and 766~km offshore to depths beyond 4000~m on a curvilinear grid of $339\times138$ points, with a horizontal spacing that refines from 5.55~km at the offshore boundary to 2.77~km at the river mouths, and 30 terrain following levels of the stretching of \citet{shchepetkin2005regional} in its fourth form, with $\theta_{s}=7$, $\theta_{b}=0.01$ and $h_{c}=10$~m, which places the finest spacing at the surface where the lens sits and retains resolution at the bed where the conversion is formed. Bathymetry was interpolated from GEBCO 2021 \citep{gebco2021} and smoothed to a maximum grid steepness $r=|h_{i+1}-h_{i}|/(h_{i+1}+h_{i})=0.2$, a limit attained by 2.8\,\% of adjacent wet pairs and exceeded by none, which bounds the pressure gradient error that terrain following coordinates carry over a slope \citep{beckmann:1993,haney:1991}, and the vertical grid that follows reaches a Haney number of 4.34, below the value at which that error becomes comparable to the signal \citep{haney:1991,mellor:1994}. The pressure gradient force was evaluated with the density Jacobian scheme of \citet{shchepetkin:2003}, vertical mixing followed the level 2.5 closure of \citet{mellor:1974}, and the quadratic bottom drag coefficient varies spatially to represent the mud floored inner shelf \citep{fontes:2008}, the fluid mud rheology itself lying outside the formulation.
+
+Initial and lateral boundary fields came from the SODA3 reanalysis \citep{soda3} at five day intervals, the atmospheric forcing from ERA5 \citep{hersbach2020era5} and the continental discharge from GloFAS \citep{glofas}, corrected to the 1990 hydrological year against the \'Obidos gauge record \citep{alessi:1992,nittrouer:1995,hiban1996}, partitioned sixty to forty between the North and South Channels and applied as a mass source distributed over the water column. The barotropic tide was imposed at the open boundaries as elevation and depth averaged transport from TPXO9 for the constituents $[\,]$ \citep{egbert:2002}, ramped over the first day and added to the processed boundary fields, through a Flather condition on the normal transport and a Chapman condition on the elevation \citep{flather:1976,chapman:1985}, with the astronomical arguments and the tidal potential retained. The baroclinic fields were radiated with the adaptive scheme of \citet{marchesiello:2001} and nudged to the reanalysis, so the interior solution is effectively free, within a sponge of $[\,]$~km in which the horizontal viscosity is enhanced. No baroclinic tide was prescribed at the boundaries, so the internal tide of the domain is generated inside it and the remotely generated field of the western tropical Atlantic is absent, which is the principal structural limitation of the configuration \citep{kerry:2013}. Both integrations span 181 days from the same initial state, and hourly three dimensional fields were stored from 5 January to 5 July 1990, which resolves the semidiurnal band with twelve samples per cycle. The barotropic $M_{2}$ elevation and current were evaluated against the harmonic constants and current moorings of \citet{beardsley:1995} and \citet{alessi:1992}, and the salinity and stratification of the lens against the AMASSEDS hydrography \citep{geyer1996physical} and the seasonal structure of \citet{nascimento:2026}, before any diagnostic was applied.
+
+\subsection{Experimental design and domain of validity}
+\label{sec:design}
+
+\REF{} carries the observed seasonal and synoptic discharge of the 1990 hydrological year, and \CTRL{} is identical in bathymetry, numerics and forcing while holding the Amazon discharge at $2.0\times10^{5}\ \mathrm{m^{3}\,s^{-1}}$, the record mean of \REF{} to within 0.5\,\%. The two share the period mean freshwater input and differ only in its variability, so every anomaly $\Delta X=X_{\REF}-X_{\CTRL}$ measures the discharge cycle at fixed mean forcing and is not the effect of a plume being present. Following \citet{nascimento:2026} the record was separated into a rising window from 5 January to 28 February, a peak window from 1 March to 31 May and a decreasing window from 1 June to 5 July, the shortest spanning two and a half fortnightly cycles. Diagnostics are integrated over three depth bands, the shelf inshore of the 250~m isobath, the upper slope between the 250 and 1000~m isobaths and the deep ocean beyond. The inner limit of the shelf band is the coast for the conversion integrals of Section~\ref{sec:energy} and the 50~m isobath for the modal and flux diagnostics of Sections~\ref{sec:modal} and \ref{sec:fate}, whose vertical resolvability sets that limit, and the outer shelf is taken between the 100 and 250~m isobaths where the generation sites are described individually.
+
+The barotropic tide should be common to experiments sharing bathymetry and tidal forcing, which was verified by comparing the $M_{2}$ amplitude and phase of the elevation and of the depth averaged velocity between the runs at every column. The slope geometry is common by construction, while the criticality that the geometry shares with the stratification is not, so
+\begin{equation}
+\alpha=\frac{|\nabla h|}{s} ,
+\qquad
+s=\left(\frac{\omega^{2}-f^{2}}{N_{b}^{2}-\omega^{2}}\right)^{1/2} ,
+\label{eq:criticality}
+\end{equation}
+was evaluated in both experiments, with $\omega$ the $M_{2}$ frequency, $f$ the Coriolis parameter, $|\nabla h|$ the bottom slope and $N_{b}$ the buoyancy frequency averaged over the lowest 50~m, so that $s$ is the slope of an internal wave characteristic and $\alpha$ exceeds unity where the bed is steeper than the beam \citep{baines:1982}. The difference in $\alpha$ between the runs is carried through the decomposition of Section~\ref{sec:energy} as a term in its own right. The plume base $h_{p}$ was taken as the depth at which the salinity first reaches 35, the definition of the lens used for this margin \citep{lentz1995seasonal,geyer1996physical}, and the depth of the maximum of $N^{2}$ is reported alongside it as the position of the pycnocline core, the two differing by a factor of several over the shelf.
+
+A diagnostic that describes a propagating wave is meaningful only where both experiments resolve it, so the number of grid points per mode one wavelength,
+\begin{equation}
+\frac{\lambda_{1}}{\Delta x} ,
+\qquad
+\lambda_{1}=c_{1}T_{M_{2}} ,
+\label{eq:ppw}
+\end{equation}
+with $\Delta x$ the local grid spacing, $c_{1}$ the mode one phase speed and $T_{M_{2}}$ the semidiurnal period, was evaluated in each experiment and window against a criterion of eight points per wavelength, the resolution below which the dispersion error of the discretisation becomes comparable to the signal, following the resolution function approach of \citet{halberg_2013}. The plume lengthens the wave, so the criterion is set by \CTRL{}, and the fraction of columns clearing it in both experiments passes 90\,\% only below about 240~m. Every flux diagnostic is therefore confined to $h>250$~m, and the modal fluxes of Section~\ref{sec:fate} to the first two modes, with the fraction of each contour clearing Equation~\ref{eq:ppw} quoted alongside so that a value obtained where the wave is marginally resolved is read as a bound. The conversion of Section~\ref{sec:energy} and its modal partition are local products of the bottom pressure and the barotropic flow that involve no radiated wavelength, so they are reported over the whole domain and their shelf values describe the generation and not a propagating field.
+
+The systematic error that terrain following coordinates carry over a slope acts identically in the two experiments, since bathymetry, grid, time step and advection scheme are common to them, so it cancels to first order in $\Delta X$ and enters the absolute values alone \citep{haney:1991,mellor:1994,shchepetkin:2003}. The detection threshold was set by \CTRL{}, the interquartile range of each diagnostic over the three day blocks of a window measuring the variability that the tide, the wind and the ambient circulation produce with the river held constant, and only anomalies exceeding twice that spread are reported as effects of the discharge.
+
+\subsection{Harmonic analysis and the baroclinic decomposition}
+\label{sec:harmonic}
+
+The semidiurnal response was extracted by least squares harmonic fits accumulated in a single streaming pass per experiment, per window and at every wet column. Window fits retain $M_{2}$ and $S_{2}$, whose Rayleigh separation of 14.77 days every window satisfies, and block fits of three days retain $M_{2}$ alone, the two being inseparable within a block, so the fortnightly modulation that follows is the spring and neap beat the analysis uses. The condition number of the normal equations was recorded for every fit and blocks exceeding $[\,]$ were discarded. Each field was written as $x=a_{x}\cos\omega t+b_{x}\sin\omega t$, with $a_{x}$ and $b_{x}$ the in phase and quadrature coefficients at the frequency $\omega$, so the tidal cycle average of a product follows from the coefficients alone through
+\begin{equation}
+\langle xy\rangle=\tfrac{1}{2}\left(a_{x}a_{y}+b_{x}b_{y}\right) ,
+\label{eq:quadratic}
+\end{equation}
+where $\langle\cdot\rangle$ denotes the average over a tidal cycle. Equation~\ref{eq:quadratic} allows the conversion, the flux and their modal counterparts to be accumulated, with no semidiurnal time series stored, and it restricts every diagnostic to the part of the signal phase locked to the astronomical forcing.
+
+Beneath a macrotidal range over a shelf tens of metres deep the instantaneous depth $D=H+\eta$ departs appreciably from the resting depth $H$, so the barotropic and baroclinic parts were separated over the moving column following \citet{kelly:2010}. The perturbation pressure at depth $z$,
+\begin{equation}
+p'(z)=\rho_{0}g\eta+g\int_{z}^{\eta}\rho'\,dz' ,
+\label{eq:pressure}
+\end{equation}
+carries the surface displacement in the first term and the internal displacement of the isopycnals in the second, with $\eta$ the free surface displacement, $\rho'$ the density anomaly relative to the window mean profile and $\rho_{0}$ the reference density. The baroclinic pressure and velocity are the departures from the instantaneous depth average,
+\begin{equation}
+p_{\bc}=p'-\frac{1}{D}\int_{-H}^{\eta}p'\,dz ,
+\qquad
+\mathbf{u}_{\bc}=\mathbf{u}-\frac{1}{D}\int_{-H}^{\eta}\mathbf{u}\,dz ,
+\label{eq:bc_split}
+\end{equation}
+so both vanish in the depth average and what remains of the flow is the barotropic tide. Density was evaluated with the nonlinear equation of state of the model, so the haline contribution that dominates the plume enters Equation~\ref{eq:bc_split} on the same footing as the thermal one.
+
+\subsection{Conversion and its factorisation}
+\label{sec:energy}
+
+The transfer from the barotropic to the baroclinic tide is the work done at the bed by the barotropic vertical velocity against the baroclinic pressure \citep{kurapov:2003,buijsman_2010},
+\begin{equation}
+C=\left\langle p_{\bc}(-H)\,w_{\bt}(-H)\right\rangle ,
+\qquad
+w_{\bt}(-H)=-\mathbf{u}_{\bt}\cdot\nabla H ,
+\label{eq:conversion}
+\end{equation}
+with $\mathbf{u}_{\bt}$ the depth averaged tidal velocity and $\nabla H$ the bottom slope, so $C$ is positive where the topography forces the barotropic flow across isobaths in phase with a baroclinic pressure maximum at the bed \citep{kelly:2010,zilberman:2009}. Writing both factors as harmonics and applying Equation~\ref{eq:quadratic} turns Equation~\ref{eq:conversion} into
+\begin{equation}
+C=\tfrac{1}{2}\,P\,W\cos\Delta\phi ,
+\qquad
+P=\left(a_{p}^{2}+b_{p}^{2}\right)^{1/2} ,
+\qquad
+W=\left(a_{w}^{2}+b_{w}^{2}\right)^{1/2} ,
+\qquad
+\Delta\phi=\arctan\frac{b_{p}}{a_{p}}-\arctan\frac{b_{w}}{a_{w}} ,
+\label{eq:amp_phase}
+\end{equation}
+with $a_{p}$ and $b_{p}$ the harmonic coefficients of $p_{\bc}(-H)$ and $a_{w}$ and $b_{w}$ those of $w_{\bt}(-H)$, so that $P$ is the amplitude of the baroclinic pressure the stratified column returns at the bed, $W$ is the amplitude of the barotropic vertical velocity the topography imposes, which the two experiments share to the accuracy established in Section~\ref{sec:design}, and $\cos\Delta\phi$ is the alignment between response and forcing, equal to unity where the two are in phase and changing sign where the response leads or lags by more than a quarter period. Equation~\ref{eq:amp_phase} is exact and holds the two routes by which stratification acts on the transfer in separate factors.
+
+Wherever $C$ is positive in both experiments the ratio between them therefore factorises,
+\begin{equation}
+\ln\frac{C_{\REF}}{C_{\CTRL}}
+=\underbrace{\ln\frac{P_{\REF}}{P_{\CTRL}}}_{\text{amplitude}}
++\underbrace{\ln\frac{\cos\Delta\phi_{\REF}}{\cos\Delta\phi_{\CTRL}}}_{\text{alignment}} ,
+\label{eq:factorise}
+\end{equation}
+the two terms summing to the whole of the conversion anomaly with no residual, since $W$ cancels between the runs. Equation~\ref{eq:factorise} was evaluated cell by cell, averaged over each band with $C$ of the realistic experiment as the weight, and applied in the same form between windows of a single experiment, which separates the seasonal cycle of the conversion into the same two channels and distinguishes it from the discharge anomaly. The alignment channel is expected to follow the criticality of Equation~\ref{eq:criticality} and was tested by binning $\cos\Delta\phi$ on $\alpha$ along the 200~m isobath, and the amplitude channel is expected to follow the near bottom stratification and was tested through the impedance $P/W$, the response per unit forcing, which removes the along margin variation of the barotropic tide from the comparison.
+
+Because $C$ changes sign wherever the bottom pressure opposes the forcing, its area integrals were separated into positive and negative parts and reported with the cancellation index
+\begin{equation}
+\kappa=1-\frac{\left|\int C\,dA\right|}{\int|C|\,dA} ,
+\label{eq:kappa}
+\end{equation}
+which vanishes for a field of a single sign and approaches unity where the two contributions cancel, so that a net conversion measures generation only where $\kappa$ is small \citep{zilberman:2009,kurapov:2003}. Every ratio and share formed below is therefore taken over the generation cells alone, those at which $C$ is positive within a band, so that no denominator passes through zero.
+
+\subsection{Modal partition of the generated wave}
+\label{sec:modal}
+
+The partition of the transfer among the vertical modes follows from projecting the baroclinic pressure onto the modes of the local column. The structure functions solve the Sturm and Liouville problem
+\begin{equation}
+\frac{\partial^{2}\Phi_{n}}{\partial z^{2}}+\frac{N^{2}(z)}{c_{n}^{2}}\,\Phi_{n}=0 ,
+\quad
+\Phi_{n}(-H)=0 ,
+\quad
+\Phi_{n}(0)=\frac{c_{n}^{2}}{g}\left.\frac{\partial\Phi_{n}}{\partial z}\right|_{z=0} ,
+\quad
+\varphi_{n}=\rho_{0}c_{n}^{2}\frac{\partial\Phi_{n}}{\partial z} ,
+\quad
+\frac{1}{H}\int_{-H}^{0}\varphi_{n}^{2}\,dz=1 ,
+\label{eq:modes}
+\end{equation}
+with $N^{2}=-(g/\rho_{0})\,\partial\rho/\partial z$ the buoyancy frequency of the background column, $c_{n}$ the eigenvalue and the phase speed of mode $n$ in the long wave limit, $\varphi_{n}$ the structure function onto which horizontal velocity and pressure project, and the unit depth mean square normalisation making the modal amplitudes comparable between columns of different depth and between the experiments. The free surface condition of Equation~\ref{eq:modes} was retained because the surface term is a leading contribution over a shelf this shallow \citep{tchilibou:2022,kelly:2016b}. The modal pressure amplitude is then the projection
+\begin{equation}
+p_{n}=\frac{1}{H}\int_{-H}^{0}p_{\bc}\,\varphi_{n}\,dz ,
+\label{eq:projection}
+\end{equation}
+which inverts the expansion $p_{\bc}=\sum_{n}p_{n}\varphi_{n}$ and was applied to the harmonic coefficients of $p_{\bc}$, so that the modal amplitudes are themselves harmonics at the $M_{2}$ frequency and carry an amplitude $P_{n}$ and a phase of their own.
+
+Substituting Equation~\ref{eq:projection} into Equation~\ref{eq:conversion} gives the conversion \citep{bendinger_2023, kurapov:2003} into mode $n$,
+\begin{equation}
+C_{n}=\left\langle p_{n}\,\varphi_{n}(-H)\,w_{\bt}(-H)\right\rangle
+=\tfrac{1}{2}\,\varphi_{n}(-H)\,P_{n}\,W\cos\Delta\phi_{n} ,
+\label{eq:modal_conversion}
+\end{equation}
+in which $\varphi_{n}(-H)$ is the value of the structure function at the bed, $P_{n}$ the amplitude of the modal pressure and $\cos\Delta\phi_{n}$ its alignment with the forcing, so that Equation~\ref{eq:modal_conversion} carries three ways in which the stratification can move the transfer between modes. Because $W$ is again common to the experiments, the ratio between them factorises exactly,
+\begin{equation}
+\ln\frac{C_{n}^{\REF}}{C_{n}^{\CTRL}}
+=\ln\frac{\varphi_{n}^{\REF}(-H)}{\varphi_{n}^{\CTRL}(-H)}
++\ln\frac{P_{n}^{\REF}}{P_{n}^{\CTRL}}
++\ln\frac{\cos\Delta\phi_{n}^{\REF}}{\cos\Delta\phi_{n}^{\CTRL}} ,
+\label{eq:modal_factorise}
+\end{equation}
+which attributes the shift between modes to the structure function at the bed, to the amplitude of the modal pressure or to its alignment, with no residual, and the identity between the two forms of Equation~\ref{eq:modal_conversion} was verified cell by cell to machine precision. The modal share and the fraction of the transfer the retained modes recover follow as
+\begin{equation}
+\Pi_{n}=\frac{\displaystyle\int_{C>0}C_{n}\,dA}{\displaystyle\int_{C>0}C\,dA} ,
+\qquad
+\Sigma_{N}=\sum_{n\leq N}\Pi_{n} ,
+\label{eq:modal_share}
+\end{equation}
+with the integrals over the generation cells of a band and $\Sigma_{N}$ approaching unity as the expansion converges.
+
+The number of modes retained was fixed by measurement, since the expansion converges more slowly at the bed than in the depth integral, $\varphi_{n}(-H)$ remaining of order unity for every $n$ while $P_{n}$ decays. Solving eight modes and following $\Sigma_{N}$ against $N$ places the recovered fraction between $0.90$ and $1.00$ at the fourth mode in every window, band and experiment, and above $0.99$ by the second mode beyond the 1000~m isobath, so four modes are retained and the approach to unity is reported with the partition. A mode was kept only where the vertical grid carries at least four levels per half wave of $\varphi_{n}$, which the sixth mode satisfies over the whole analysis band. Because Equations~\ref{eq:projection} to \ref{eq:modal_share} are properties of the local column and of the forcing, they require vertical resolution alone and the partition extends onto the shelf, and what it describes is the distribution of the transfer among the modes at the source.
+
+\subsection{Radiation and the fate of the converted energy}
+\label{sec:fate}
+
+Energy leaves a generation site as a depth integrated baroclinic flux,
+\begin{equation}
+\mathbf{F}_{\bc}=\int_{-H}^{0}\left\langle \mathbf{u}_{\bc}\,p_{\bc}\right\rangle dz ,
+\label{eq:flux}
+\end{equation}
+with $\mathbf{u}_{\bc}$ and $p_{\bc}$ the baroclinic velocity and pressure of Equations~\ref{eq:pressure} and \ref{eq:bc_split}, formed from the harmonic coefficients so that Equation~\ref{eq:flux} carries the coherent $M_{2}$ signal alone \citep{kelly:2010,nash_alford:2005}. Being a product of fields at a single point, $\mathbf{F}_{\bc}$ requires no horizontal derivative and is defined wherever the columns are.
+
+The fate of the converted energy follows from the balance of depth integrated baroclinic energy over a control volume, in which the conversion supplies energy, the flux carries it across the boundary and the remainder is lost. Integrating that balance over a volume bounded by two isobaths and applying the divergence theorem replaces the divergence of the flux by a closed line integral,
+\begin{equation}
+\int_{A}C\,dA=\Phi_{\rm out}-\Phi_{\rm in}+\Phi_{\rm edge}+L ,
+\label{eq:budget}
+\end{equation}
+with $\Phi_{\rm out}$ and $\Phi_{\rm in}$ the power crossing the deeper and the shallower bounding isobath along the outward normal, $\Phi_{\rm edge}$ the power leaving through the alongshore and seaward limits of the configuration, and $L$ the residual, which aggregates dissipation with the advective and tendency terms neglected in forming Equation~\ref{eq:budget} and with any numerical damping. The offshore normal at an isobath was taken from the bathymetric gradient and the flux sampled at the nearest wet column, so every term of Equation~\ref{eq:budget} is a line integral of a pointwise quantity. That choice is required at this resolution, since a pointwise divergence is a difference taken across two or three cells while Equation~\ref{eq:ppw} places the mode one wavelength at eight to twelve cells over the outer shelf, so a divergence formed there would carry a differencing error comparable to the signal. Reporting $\Phi_{\rm edge}$ separately also makes explicit what the limited extent of the configuration removes from the budget.
+
+The share of the generated energy reaching the open ocean is measured as
+\begin{equation}
+E=\frac{\Phi(h_{E})}{\displaystyle\int_{C>0}C\,dA} ,
+\label{eq:radiated}
+\end{equation}
+with $\Phi(h_{E})$ the power crossing the 1000~m isobath, which lies seaward of every generation site of the margin, and the denominator the positive conversion of Equation~\ref{eq:modal_share} taken between the 50 and 1000~m isobaths, so that $1-E$ is the share lost within the margin or carried out through its limits. Evaluating $\Phi$ at a sequence of isobaths between 250 and 3000~m gives the rate at which the radiated beam is attenuated with distance from the source. Decomposing Equation~\ref{eq:flux} onto the modes gives $\mathbf{F}_{n}=H\left\langle \mathbf{u}_{n}p_{n}\right\rangle$, with $\mathbf{u}_{n}$ and $p_{n}$ the projections of Equation~\ref{eq:projection}, so the modal composition of what leaves the margin is compared with the modal composition of what is generated, under the resolution condition of Section~\ref{sec:design}.
+
+
+%-----------------------------------------------------------------------
+\section{Results}
+%-----------------------------------------------------------------------
+
+\subsection{The margin and the controls on the comparison}
+\label{sec:regime}
+
+The barotropic tide was common to the two experiments, the median difference over the 20 to 1000~m band amounting to 0.68\,\% of the $M_{2}$ elevation amplitude and 1.80\,\% of the depth averaged current, and to 1.10 and 1.73\,\% along the 200~m isobath (Fig.~\ref{fig:setting}b), so the forcing $W$ of Equation~\ref{eq:amp_phase} is shared to that accuracy and every anomaly below is carried by the stratification. The column exceeded three times the depth of the pycnocline core over the whole of the upper slope and over 72 to 100\,\% of the outer shelf through the season (Fig.~\ref{fig:setting}c), which is the condition under which the criticality argument is applied. Both experiments cleared eight points per mode one wavelength over the whole upper slope and deep ocean, while the fraction resolved in both passed 90\,\% only below about 240~m (Fig.~\ref{fig:setting}d), placing the flux diagnostics of Section~\ref{sec:radiation_results} seaward of the 250~m isobath.
+
+The criticality was not shared. Its median along the 200~m isobath followed the season in both experiments, falling from 1.52 in the rising window to 1.14 at peak discharge and returning to 1.54 in the realistic run, against 1.49, 1.26 and 1.41 in the control (Fig.~\ref{fig:setting}e), and the difference between the runs reached 7, 28 and 30\,\% of the along break standard deviation of $\alpha$ in the same windows (Fig.~\ref{fig:setting}f). That difference follows the near bottom stratification, which separates the experiments by 3.2, 15.8 and 14.8\,\% along the same path, and at peak discharge the two runs fell on opposite sides of $\alpha=1$ over 11.9\,\% of the break.
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=\textwidth]{Fig1.jpeg}
+\caption{The Amazon margin and the controls on the comparison between the experiments. (a) Bathymetry with the 50, 100 and 200~m isobaths in black, the generation sites of \citet{magalhaes:2016} as stars, the dominant sites A and B in red, the AMASSEDS moorings as circles, the cross shelf sections as dashed lines, and the 200~m path of panels (e) and (f) in white and black. (b) Difference between the experiments in the semi major axis of the depth averaged $M_2$ current, as a percentage of the realistic run, with the $M_2$ elevation amplitude of that run contoured in white and the distribution of the difference over the 20 to 1000~m band inset. (c) Column depth over the depth of the pycnocline core (the maximum of $N^2$) at peak discharge, the red contour marking a column three times that depth, seaward of which the criticality argument is applied. (d) Points per mode one wavelength against depth at peak discharge, as the median and interquartile range within logarithmic bins, with the criterion of eight points per wavelength shaded and the percentage of cells resolved in both experiments on the right axis. (e) Criticality $\alpha=|\nabla h|/s$ along the 200~m isobath at peak discharge, the shaded band subcritical and the vertical lines the generation sites, and (f) the difference in $\alpha$ between the experiments on the same axis.}
+\label{fig:setting}
+\end{figure*}
+
+\subsection{The stratification the discharge builds}
+\label{sec:waveguide}
+
+River buoyancy raised the mode one phase speed across the shelf, the outer shelf median rising by factors of 1.26, 1.40 and 1.55 between the experiments and the mid shelf median doubling in every window, against ratios of 1.01 to 1.08 over the upper slope (Fig.~\ref{fig:waveguide}a to d). The band of high $c_{1}$ followed the surface 35 isohaline across the isobaths, and the constant discharge experiment supported no resolvable first mode over 2.4, 15.3 and 18.3\,\% of the mid shelf, at columns where the realistic one carried a mode. At the outer shelf moorings the node of the gravest mode was drawn up to the halocline, the surface trapping index reaching 0.85 in the realistic experiment against 0.45 in the control (Fig.~\ref{fig:waveguide}e).
+
+Surface trapping altered the amplitude through which the topography forces that mode. Over the outer shelf the trapping index rose from 0.31, 0.16 and 0.54 in the constant discharge experiment to 0.55, 0.70 and 0.88 in the realistic one, while $|\varphi_{1}(-H)|$ fell to 0.75, 0.69 and 0.54 of its control value, and the two quantities were inversely related within each experiment over the whole 50 to 1000~m range (Fig.~\ref{fig:waveguide}f). Over the upper slope, where the lens occupies a small part of the column, that ratio stayed between 0.94 and 1.06. The near bottom stratification along the 200~m isobath differed between the experiments by ratios of 1.04, 0.85 and 1.27 (Fig.~\ref{fig:waveguide}g), so the lens altered the column at the bed as well as at the surface. Both quantities that Equation~\ref{eq:amp_phase} carries are therefore moved by the discharge.
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=\textwidth]{Fig2.jpeg}
+\caption{The stratification the discharge builds. (a to c) Mode one phase speed $c_1$ in the realistic experiment for the rising, peak and decreasing windows, on a logarithmic scale, with the surface 35 isohaline in white, the 200~m isobath in black and the 50, 100 and 1000~m isobaths in grey. (d) Difference in $c_1$ between the experiments at peak discharge, with the 35 isohaline of the realistic run solid and that of the control dashed, and the AMASSEDS moorings marked. (e) Vertical structure of mode one at M1, M2 and M3 at peak discharge, $\varphi_1$ in bold and $\Phi_1$ rescaled to the same range as a thin line, realistic solid and control dashed, with $N^2$ of the realistic run shaded on the upper axis and the plume base $h_p$ (the depth at which the salinity first reaches 35) in red. (f) That bottom value against the surface trapping index for columns between 50 and 1000~m, as the median within bins with the interquartile range of the realistic run shaded and a subsample of its columns as points, colour by window and line style by experiment. (g) Near bottom buoyancy frequency squared, averaged over the lowest 50~m, along the 200~m isobath, on the same colour and line style convention.}
+\label{fig:waveguide}
+\end{figure*}
+
+\subsection{Conversion and its factorisation}
+\label{sec:budget}
+
+Conversion was anchored between the 100 and 1000~m isobaths in both experiments and changed sign across the interference filaments, so the integrals were separated as Equation~\ref{eq:kappa} requires (Fig.~\ref{fig:conversion}a to c and i, Table~\ref{tab:conversion}a). The shelf field was single signed and the positive conversion of the realistic experiment exceeded that of the control by factors of 1.19, 1.32 and 1.52 through the season. Over the upper slope the positive conversion of the realistic experiment fell to a fifth of its rising value at peak discharge while its cancellation index rose to 0.68, and beyond the 1000~m isobath generation and reverse pressure work nearly cancelled in both runs. The interquartile range of the block resolved conversion within the control over the generation band was $4.4$, $1.9$ and $2.2\times10^{-2}$~W~m$^{-2}$, so every anomaly quoted here exceeds twice the internal variability of the margin at constant river.
+
+Applying Equation~\ref{eq:factorise} split each of those ratios into an amplitude term and an alignment term that sum to the total with no residual, over the 31 to 76\,\% of a band at which both experiments convert and remain aligned (Fig.~\ref{fig:conversion}d to f, Table~\ref{tab:conversion}b). Over the shelf the alignment carried 63, 57 and 67\,\% of the anomaly in the three windows, and over the upper slope it carried the whole of it at peak discharge, the amplitude term falling below unity. That the alignment should respond at all follows from its relation to the geometry, since $\cos\Delta\phi$ rose with $\alpha$ along the 200~m isobath in both experiments and all three windows, with a rank correlation reaching 0.49 at peak discharge (Fig.~\ref{fig:conversion}g). As the median criticality of the realistic experiment fell from 1.52 to 1.14 between the rising and peak windows, the median alignment fell from 0.58 to 0.41 and the median bottom pressure amplitude from 215 to 166~Pa. The response per unit forcing rose with the near bottom stratification along the same path, the three windows collapsing onto one relation whose slope of $\ln(P/W)$ on $\ln N_{b}^{2}$ reached 0.42, 0.18 and 0.38 in the realistic experiment (Fig.~\ref{fig:conversion}h). Applied between windows of a single experiment, the same factorisation gave an upper slope factor at peak discharge against the rising window of 0.35, carried by an amplitude term of 0.66 and an alignment term of 0.52, so both channels fell together in the window at which $\alpha$ came closest to unity. 
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=0.9\textwidth]{Fig3.jpeg}
+\caption{Conversion and its factorisation. (a to c) Barotropic to baroclinic conversion $C=\langle p_{\bc}(-H)\, w_{\bt}(-H)\rangle$ in the realistic experiment for the rising, peak and decreasing windows, positive values denoting transfer into the baroclinic field, with the 200~m isobath in black and the 50, 1000 and 2000~m isobaths in grey. (d to f) The factorisation of Equation~\ref{eq:factorise} at peak discharge, the total log ratio between the experiments, its amplitude term and its alignment term, on one colour scale, the last two summing to the first cell by cell. The ratio is defined where both experiments convert and remain aligned. (g) Alignment $\cos\Delta\phi$ against criticality $\alpha$ along the 200~m isobath, as the median within bins with the interquartile range of the realistic experiment shaded, colour by window and line style by experiment, the shaded band subcritical and the annotation giving the rank correlation of the two at peak discharge. (h) Response per unit forcing, the ratio of the amplitude $P$ of the baroclinic pressure at the bed to the amplitude $W$ of the barotropic vertical velocity, against the near bottom buoyancy frequency squared on the same path and with the same convention, binned over the range of $N_b^{2}$ that the break occupies. (i) Signed decomposition of the integrated conversion for the shelf, the upper slope and the deep zone, the positive part in blue, the negative part in red and the net as a black diamond with its value labelled, hatched bars denoting the control experiment.}
+\label{fig:conversion}
+\end{figure*}
+
+\subsection{The modal partition of the generated wave}
+\label{sec:modal_results}
+
+The expansion of the conversion onto the vertical modes was carried to eight modes and $\Sigma_{N}$ of Equation~\ref{eq:modal_share} followed against mode number (Fig.~\ref{fig:modal}d). Four modes recovered 0.97 to 1.00 of the shelf conversion in both experiments and 0.72 to 0.96 over the two deeper bands (Table~\ref{tab:modal}), and taken pointwise over the cells above the 75th percentile of the conversion magnitude the same fraction reached 0.90 to 1.02 everywhere by the fourth mode, while the vertical grid carried at least four levels per half wave of $\varphi_{n}$ through the sixth mode over the whole analysis band. Over the shelf the mode one share fell from 0.86 in the control to 0.72 in the realistic experiment in the mean of the three windows, while the mode two share roughly doubled, and the conversion into each mode changed between the experiments by factors of 0.92 to 1.22 for mode one and of 1.7 to 4.0 for modes two, three and four (Fig.~\ref{fig:modal}a to c and e). Over the upper slope the mode one share moved by at most 0.13 in either direction, and beyond the 1000~m isobath it was negative in both experiments, mode two carrying between 0.72 and 0.78 of a conversion whose positive and negative parts nearly cancelled.
+
+Applying Equation~\ref{eq:modal_factorise} attributed that shift to one of the three quantities of Equation~\ref{eq:modal_conversion}, over the 30 to 42\,\% of the shelf at which both experiments generate into a given mode (Fig.~\ref{fig:modal}f). The amplitude of the modal pressure carried the whole of it for the second and third modes, accounting at peak discharge for 77 and 71\,\% of the logarithm of the total factor against 2 and 21\,\% for the structure function at the bed, and the two contributed equally only at the fourth mode, where the vertical scale of the mode approaches the thickness of the lens. Over the upper slope the shift was carried by the alignment, its factor reaching 2.19 for mode one in the decreasing window against 1.03 for the structure function at the bed. 
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=\textwidth]{Fig4.jpeg}
+\caption{The modal partition of the generated wave. (a and b) Conversion into modes one and two in the realistic experiment at peak discharge, on one colour scale, with the 200~m isobath in black and the 250, 1000 and 2000~m isobaths in grey. (c) Difference between the experiments in the mode one share, drawn at the generating cells where the recovered fraction lies between 0.6 and 1.4 in both. (d) Cumulative recovered fraction $\Sigma_N$ against mode number for the three depth bands, colour by band and line style by experiment, the dotted vertical marking the four modes retained. (e) Modal shares of the positive conversion by band, window and experiment, colour by mode, hatched bars denoting the control, the bars summing to $\Sigma_4$. (f) Factorisation of the ratio of the modal conversion between the experiments over the shelf, colour by factor, as the median over the three windows with their range shaded.}
+\label{fig:modal}
+\end{figure*}
+
+\subsection{Radiation and where the energy is lost}
+\label{sec:radiation_results}
+
+The baroclinic flux of Equation~\ref{eq:flux} left the margin as a set of beams rooted on the shelf break and directed seaward across the slope, reaching 3000~W~m$^{-1}$ over the generation sites of the central margin (Fig.~\ref{fig:radiation}a to c). Closing Equation~\ref{eq:budget} band by band (Fig.~\ref{fig:radiation}d, Table~\ref{tab:modal}) leaves a residual amounting to 0.35 to 0.39 of the shelf conversion in the realistic experiment and to 0.31 to 0.38 in the control, and the power leaving through the alongshore limits of the configuration was below 1~MW over the shelf and the upper slope in every window and experiment. The upper slope exported less through its deeper boundary than it received through its shallower one at peak discharge, in both experiments. Along the seaward path the power crossing successive isobaths at peak discharge fell from 1102~MW at the 250~m isobath to 994~MW at 1000~m and 568~MW at 3000~m in the realistic experiment, and from 935 to 813 and 498~MW in the control, the mode one wave clearing eight points per wavelength over 82 to 100\,\% of the shallowest contour and over the whole of every deeper one (Fig.~\ref{fig:radiation}e).
+
+Measured against the generation between the 50 and 1000~m isobaths, the power crossing the 1000~m isobath gave radiated fractions $E$ of 0.61, 0.51 and 0.58 in the realistic experiment against 0.59, 0.50 and 0.49 in the control (Fig.~\ref{fig:radiation}f). River buoyancy raised the generation by factors of 1.13, 1.19 and 1.74 and the radiated power by 1.18, 1.22 and 2.04, so the radiated fraction differed between the experiments by 0.02, 0.01 and 0.09. That flux was carried by the gravest mode, which contributed 0.82, 0.87 and 0.91 of the total in the realistic experiment against 0.81, 0.86 and 0.85 in the control, while mode two contributed between 41 and 148~MW. Seaward of that isobath the two exchanged rank, the mode one power falling by a quarter to a half between the 1000 and 2000~m isobaths while the mode two power rose by factors of three to nine.
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=\textwidth]{Fig5.jpeg}
+\caption{Radiation and where the energy is lost. (a to c) Depth integrated baroclinic flux in the realistic experiment for the rising, peak and decreasing windows, magnitude shaded and direction as arrows decimated for legibility, with the 200~m isobath in black and the 250, 1000 and 2000~m isobaths in grey. (d) Control volume budget by depth band, window and experiment, the conversion against the net export through the bounding isobaths, the power leaving through the alongshore and seaward limits of the configuration and the residual, hatched bars denoting the control. Every flux term is a line integral of $\mathbf{F}_{\bc}$ taken along a contour, so the budget of Equation~\ref{eq:budget} closes without a horizontal derivative of the flux being formed anywhere, and the deep band, whose seaward boundary is the limit of the configuration, exports entirely through that limit. (e) Power crossing each isobath, positive offshore, at peak discharge, in total and carried by modes one and two, line style by experiment, the dashed vertical marking the isobath at which the radiated fraction is quoted. (f) Radiated fraction $E$ of Equation~\ref{eq:radiated} with its complement stacked above it, by window and experiment.}
+\label{fig:radiation}
+\end{figure*}
+
+
+%======================================================================
+% TABLES
+%======================================================================
+
+\begin{table*}[t]
+\centering
+\caption{Conversion and its factorisation, by depth band and window. Values are given as realistic experiment over control. (a) Positive and net conversion of Equation~\ref{eq:conversion} with the cancellation index $\kappa$ of Equation~\ref{eq:kappa}. (b) The factorisation of Equation~\ref{eq:factorise}, as multiplicative factors whose amplitude and alignment terms multiply to the total, averaged over each band with $C$ of the realistic experiment as the weight, with the share of the band on which the factorisation is defined. The shelf band here is the whole of the domain inshore of the 250~m isobath.}
+\label{tab:conversion}
+\footnotesize
+\begin{tabular}{@{}llrrrr@{\hskip 2.2em}rrrr@{}}
+\toprule
+& & \multicolumn{4}{c}{(a) integrated conversion, MW}
+  & \multicolumn{4}{c}{(b) factorisation, \REF{} over \CTRL{}} \\
+\cmidrule(lr){3-6}\cmidrule(l){7-10}
+Window & Band & $\int C^{+}$ & $\int C$ & ratio & $\kappa$
+       & total & amplitude & alignment & area \\
+\midrule
+rising     & shelf & 1869 / 1572 & 1786 / 1502 & 1.19 & 0.08 / 0.09
+           & 1.33 & 1.11 & 1.20 & 36\,\% \\
+           & slope & 1307 / 1106 & 1275 / 1078 & 1.18 & 0.05 / 0.05
+           & 1.20 & 1.03 & 1.17 & 76\,\% \\
+           & deep  &  263 /  263 & $-44$ / $-37$ & 1.00 & 0.92 / 0.93
+           & 1.04 & 1.01 & 1.04 & 39\,\% \\
+\addlinespace[0.25em]
+peak       & shelf & 1974 / 1501 & 1846 / 1397 & 1.32 & 0.12 / 0.13
+           & 1.59 & 1.22 & 1.30 & 38\,\% \\
+           & slope &  252 /  238 &  123 /   36 & 1.06 & 0.68 / 0.92
+           & 1.15 & 0.97 & 1.19 & 34\,\% \\
+           & deep  &  173 /  225 & $-60$ / $-10$ & 0.77 & 0.85 / 0.98
+           & 1.01 & 1.00 & 1.00 & 31\,\% \\
+\addlinespace[0.25em]
+decreasing & shelf & 1774 / 1168 & 1672 / 1059 & 1.52 & 0.11 / 0.17
+           & 1.76 & 1.20 & 1.48 & 32\,\% \\
+           & slope & 1078 /  453 & 1014 /  342 & 2.38 & 0.11 / 0.39
+           & 2.71 & 1.36 & 2.03 & 46\,\% \\
+           & deep  &  261 /  439 & $-32$ /  188 & 0.59 & 0.94 / 0.73
+           & 0.95 & 1.05 & 0.88 & 32\,\% \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{The modal partition of the generated wave and the control volume budget, by depth band and window. Values are given as realistic experiment over control. $\Sigma_{4}$ is the share of the conversion recovered by four modes and $\Pi_{1}$ and $\Pi_{2}$ the shares carried by the first and second, all taken over the generation cells of Equation~\ref{eq:modal_share}. The net export is $\Phi_{\rm out}-\Phi_{\rm in}$ of Equation~\ref{eq:budget} and $L$ its residual. The shelf band here runs from the 50 to the 250~m isobath and the deep band from the 1000~m isobath to the seaward limit of the configuration, through which that band exports entirely.}
+\label{tab:modal}
+\footnotesize
+\begin{tabular}{@{}llrrr@{\hskip 2.2em}rr@{}}
+\toprule
+& & \multicolumn{3}{c}{modal partition}
+  & \multicolumn{2}{c}{budget, MW} \\
+\cmidrule(lr){3-5}\cmidrule(l){6-7}
+Window & Band & $\Sigma_{4}$ & $\Pi_{1}$ & $\Pi_{2}$
+       & net export & $L$ \\
+\midrule
+rising     & shelf & 0.99 / 1.00 & 0.73 / 0.87 & 0.17 / 0.10
+           &  999 /  907 &  615 /  558 \\
+           & slope & 0.81 / 0.88 & 0.41 / 0.37 & 0.20 / 0.25
+           &  772 /  614 &  503 /  464 \\
+           & deep  & 0.78 / 0.83 & $-0.44$ / $-0.40$ & 0.78 / 0.76
+           & $-1800$ / $-1531$ & 1453 / 1266 \\
+\addlinespace[0.25em]
+peak       & shelf & 0.97 / 0.99 & 0.72 / 0.85 & 0.18 / 0.10
+           & 1053 /  918 &  565 /  416 \\
+           & slope & 0.72 / 0.82 & 0.18 / 0.27 & 0.24 / 0.27
+           & $-108$ / $-122$ &  231 /  157 \\
+           & deep  & 0.76 / 0.90 & $-0.40$ / $-0.36$ & 0.72 / 0.84
+           & $-994$ / $-813$ &  847 /  755 \\
+\addlinespace[0.25em]
+decreasing & shelf & 1.00 / 1.00 & 0.71 / 0.86 & 0.22 / 0.11
+           &  945 /  633 &  597 /  391 \\
+           & slope & 0.87 / 0.87 & 0.52 / 0.39 & 0.17 / 0.21
+           &  572 /  113 &  442 /  229 \\
+           & deep  & 0.85 / 0.96 & $-0.36$ / $-0.10$ & 0.76 / 0.79
+           & $-1546$ / $-756$ & 1327 /  820 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+
+%-----------------------------------------------------------------------
+\section{Discussion}
+%-----------------------------------------------------------------------
+
+Attributing a share of the internal tide variability of a continental margin to its river has not previously been possible, because the seasonal comparisons available for the Amazon vary the discharge, the North Brazil Current and the eddy field together \citep{tchilibou:2022,barbot_2021,assene:2024}. Holding the tide, the bathymetry and the period mean freshwater input fixed removes that ambiguity, and the barotropic tide of the two experiments then agrees to 0.68\,\% of its elevation amplitude and 1.80\,\% of its current (Fig.~\ref{fig:setting}b), so the forcing $W$ of Equation~\ref{eq:amp_phase} cancels between them and every anomaly is the discharge cycle at fixed mean forcing. Under that control the semidiurnal conversion of the Amazon shelf is raised by factors of 1.19, 1.32 and 1.52 through the flood (Fig.~\ref{fig:conversion}i, Table~\ref{tab:conversion}), which places the continental contribution at a fifth to a half of the shelf generation and confirms as causal the association between the flood and the higher conversion that the seasonal studies of the region could only report.
+
+The route by which that gain is delivered is not the one the surface trapped geometry of the lens would suggest. Over the shelf the alignment term of Equation~\ref{eq:factorise} carries 57 to 67\,\% of the anomaly and the amplitude term the remainder (Fig.~\ref{fig:conversion}d to f), so the discharge acts primarily on the phase between the bottom pressure and the barotropic forcing. That the lens can act on a phase set at the bed follows from its reach, since the near bottom stratification along the break differs between the experiments by 15.8\,\% at peak discharge and 14.8\,\% in the decreasing window (Fig.~\ref{fig:waveguide}g), which moves the characteristic slope $s$ of Equation~\ref{eq:criticality} and with it the criticality by 28 and 30\,\% of its along break variability (Fig.~\ref{fig:setting}f). A lens twenty to fifty metres thick over a break at 200~m therefore reaches the bed through the tail of its density anomaly, and the classical control of generation by criticality \citep{baines:1982,garrett:2007,klymak:2011} becomes a route through which continental buoyancy acts.
+
+How criticality enters the transfer on this margin is measurable because the alignment is available separately from the amplitude. The alignment rises with $\alpha$ in both experiments and all three windows, with a rank correlation reaching 0.49 at peak discharge (Fig.~\ref{fig:conversion}g), so the supercritical parts of the break convert more efficiently per unit forcing than those approaching criticality. The seasonal behaviour of the upper slope follows from that relation, since the median $\alpha$ falls to its closest approach to unity at peak discharge, 1.14 against 1.52 in the rising window, and the positive conversion of the band falls to 252~MW from 1307~MW (Fig.~\ref{fig:conversion}i). Splitting that collapse with the same factorisation gives an amplitude term of 0.66 and an alignment term of 0.52, so the two channels fall together. The near critical slope also departs from the weak topography response, the slope of $\ln(P/W)$ on $\ln N_{b}^{2}$ reaching 0.18 at peak discharge against 0.42 and 0.38 in the other windows and against the value of one half implied by a bottom pressure proportional to $N_{b}$ \citep{bell:1975,llewellynsmith:2002,nycander:2005}. The response at a near critical slope is concentrated in a beam that is reflected and scattered close to the bed \citep{klymak:2011,hall_2013}, so the bottom pressure there carries the locally generated short scales as well as the response to the barotropic forcing, which degrades its alignment with that forcing and its growth with the stratification at once. The seasonal minimum of conversion reported for the region \citep{barbot_2021,tchilibou:2022} is here shown to follow that approach to criticality rather more closely than it follows the discharge itself.
+
+The distribution of the transfer among the vertical modes is altered by the lens in the direction expected, while the mechanism behind the shift is not the one the modal formulation would suggest. The share of the shelf conversion carried by the gravest mode falls from 0.86 to 0.72 in the mean of the three windows and the conversion into modes two, three and four is multiplied by factors between 1.7 and 4.0 (Fig.~\ref{fig:modal}e, Table~\ref{tab:modal}). Since $\varphi_{n}(-H)$ multiplies the whole of Equation~\ref{eq:modal_conversion}, the modal formulations of generation \citep{llewellynsmith:2002,griffiths:2007,kelly:2012} place the control of the partition by the stratification in the value of the structure function at the bed, and the exact factorisation of Equation~\ref{eq:modal_factorise} shows that route to carry little of the shift below the fourth mode. The amplitude of the modal pressure carries 77 and 71\,\% of the logarithm of the shelf factor for modes two and three, against 2 and 21\,\% for the structure function at the bed, and the two contribute equally only at mode four (Fig.~\ref{fig:modal}f). What the lens does is reshape the vertical profile of the baroclinic pressure that Equation~\ref{eq:pressure} carries, concentrating its structure in the upper tens of metres where the density anomaly sits, so that the same bottom forcing projects several times more strongly onto the short vertical scales. The structure function at the bed is comparatively insensitive because the lens occupies a small part of a column two hundred metres deep, and it becomes competitive only for the modes whose vertical scale approaches the thickness of the lens.
+
+Whether a shift of the generation towards higher modes reaches the deep ocean depends on how much of the total those modes carry, and on this margin it does not. The radiated fraction of Equation~\ref{eq:radiated} is 0.61, 0.51 and 0.58 in the realistic experiment against 0.59, 0.50 and 0.49 in the control (Fig.~\ref{fig:radiation}f), so the discharge raises the generation by 13, 19 and 74\,\% and the power crossing the 1000~m isobath by 18, 22 and 104\,\%, leaving the share almost unaltered. The modal composition of the flux explains the insensitivity, the gravest mode carrying 82, 87 and 91\,\% of what crosses that isobath while mode two carries 41 to 148~MW (Fig.~\ref{fig:radiation}e). The higher modes the river adds are lost close to their source, as the difference in group speed requires \citep{kelly:2010,kelly:2012,vic2019deep}, and their absolute contribution is too small to move a fraction dominated by mode one. The consequence for the interpretation of observed seasonality is that a stronger flood raises the internal tide energy reaching the open ocean in proportion to what the margin generates, and the loss within the shelf, 0.35 to 0.39 of its conversion against 0.31 to 0.38 in the control (Fig.~\ref{fig:radiation}d), rises in absolute terms with the conversion itself.
+
+Beyond the 1000~m isobath the modal composition reverses, the mode one power falling from 1478, 869 and 1406~MW to 1207, 587 and 1031~MW between the 1000 and 2000~m isobaths while the mode two power rises from 148, 68 and 41~MW to 409, 295 and 372~MW (Fig.~\ref{fig:radiation}e). Generation continues over the deep margin, where the modal shares of Equation~\ref{eq:modal_share} give mode two between 0.72 and 0.78 of a positive conversion of 173 to 273~MW while mode one is negative (Fig.~\ref{fig:modal}e), so the growth of the second mode offshore is consistent with local generation. Scattering of the gravest mode by the deep topography and by the mesoscale field would produce the same signature \citep{kelly:2016,dunphy:2017,nelson:2019,lahaye:2026}, and the two contributions are not separated by the diagnostics used here, so the offshore mode two flux is reported without an origin being assigned. The exchange of rank between the modes nevertheless matters for the interpretation of altimetric estimates over this margin \citep{tchilibou:2022,bendinger_2023,kouogang:2025}, since a mode one field inferred at the shelf break understates what is present two hundred kilometres seaward.
+
+The conclusions drawn above are bounded by the configuration and by the diagnostics in five respects. No baroclinic tide is prescribed at the open boundaries, so the internal tide of the domain is generated within it and the remotely generated field of the western tropical Atlantic is absent, which affects the interference pattern that produces the cancellation indices of 0.85 to 0.94 in the deep and therefore the deep values alone \citep{kerry:2013}. The residual of the deep band, 847 to 1453~MW against an inflow of 994 to 1800~MW, is too large a fraction to represent dissipation of a mode one wave over a few hundred kilometres \citep{vic2019deep}, and the offshore decay of the flux beyond the 2000~m isobath indicates that the boundary relaxation of the configuration absorbs much of it, so the deep band measures the treatment of the boundary and its budget is reported without physical interpretation. The horizontal resolution restricts every flux diagnostic to depths beyond 250~m and every modal flux to the first two modes, which leaves the routing of the higher modes generated on the shelf undetermined and makes the local loss inferred for them a residual and not a measurement. The exact factorisations of Equations~\ref{eq:factorise} and \ref{eq:modal_factorise} are defined only where both experiments convert into the same mode with the response still aligned, which covers 31 to 76\,\% of a band for the total and 30 to 42\,\% of the shelf mode by mode, so the attribution holds over the generating core of the margin and is not an area weighted statement about the whole of it. The anomaly between the experiments is the whole response to the discharge cycle, which includes the adjustment of the shelf circulation and of the vertical mixing to the plume as well as the buoyancy the plume adds directly, so the continental share identified here is attributed to the variability of the discharge and not to its buoyancy alone, and a single hydrological year is examined with the fluid mud rheology of the inner shelf represented through an enhanced drag coefficient \citep{fontes:2008,kineke1996fluid}, so the dissipation of the barotropic tide over the inner shelf is parametrised and not resolved.
+
+
+%-----------------------------------------------------------------------
+\section{Conclusions}
+%-----------------------------------------------------------------------
+
+Continental discharge sets the amount of energy a river dominated margin extracts from the barotropic tide. Because the twin experiments share bathymetry, tidal forcing and period mean freshwater input, the barotropic vertical velocity cancels between them and the conversion anomaly separates exactly into the amplitude of the baroclinic pressure at the bed and its alignment with the forcing. Over the Amazon shelf the alignment carries the larger part of the gain, which follows from the reach of the lens, since a surface trapped density anomaly still alters the stratification at the bed sufficiently to move the criticality of the break. The classical control of generation by the ratio of the bottom slope to the internal wave characteristic therefore becomes the route through which continental buoyancy acts, and where that ratio is driven towards unity by a stronger flood the amplitude and the alignment fall together and the upper slope converts least at the height of the discharge.
+
+The same buoyancy alters the vertical distribution of what is generated, moving the transfer from the gravest mode towards the second, third and fourth. Attributing that shift is possible because the modal conversion factorises in the same way as the total, and the attribution departs from the expectation carried by the modal formulation. The value of the structure function at the bed is comparatively unmoved, and the shift is carried by the amplitude of the modal pressure, since a lens occupying the upper tens of metres reshapes the vertical profile of the baroclinic pressure without altering the deep column that sets the structure functions. The modal partition of the conversion is therefore governed by the shape of the pressure response wherever stratification is concentrated well above the generating topography.
+
+What leaves the margin is nevertheless unchanged in proportion. The gravest mode carries almost all of the flux crossing the deep isobaths, the higher modes the river adds are lost near their source, and the share of the generated energy that reaches the open ocean is set by the geometry of the margin while its magnitude is set by the river. A stronger flood therefore delivers more internal tide energy to the interior in proportion to what it generates, and the redistribution among modes registers as dissipation over the shelf. Ocean models that impose a climatological discharge on a river dominated margin will accordingly misplace both the magnitude of the semidiurnal conversion and the share of it that is dissipated locally, while reproducing the fraction that radiates.
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Data availability}
+The ROMS' simulations configuration files and Python scripts developed to perform the analysis and generate the figures presented in this study are openly available in a GitHub repository at \url{https://github.com/arian-dialectaquiz/amazon_it}. The ROMS output dataset and its derived variables are shared under request due to their large sizes and dependencies. 
+
+\section*{Acknowledgments}
+
+%% Loading bibliography style file
+%\bibliographystyle{model1-num-names}
+\bibliographystyle{cas-model2-names}
+
+% Loading bibliography database
+\bibliography{cas-refs}
+
+% Biography
+%\bio{}
+% Here goes the biography details.
+%\endbio
+
+%\bio{pic1}
+% Here goes the biography details.
+%\endbio
+
+\end{document}
+
